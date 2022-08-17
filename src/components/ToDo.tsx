@@ -1,12 +1,11 @@
 import React from "react"
 import { useSetRecoilState } from "recoil"
-import { IToDo, toDoState } from "../atoms"
+import { IToDo,toDoState } from "../atoms"
 
 /*
 newCategory:"TO_DO | "DOING" \ "DONE"을 써줄 수 있지만 썻던 걸 다시 사용하고 싶지 않으니 아래와 같은 방법 사용
 newCategory:IToDo["category"]
 */
-
 
 function ToDo({text,category,id}:IToDo){
     const setToDos = useSetRecoilState(toDoState)
@@ -14,13 +13,18 @@ function ToDo({text,category,id}:IToDo){
     // const onClick = (newCategory:IToDo["category"])=>{
     //     console.log("i wanna to",newCategory)
     // }
+    // console.log(setToDos)
+
     const onClick = (event : React.MouseEvent<HTMLButtonElement>)=>{
         const name = event.currentTarget.name;
+        //버튼 클릭 시 setToDos를 이용하여 toDoState Atom state 변경 
         setToDos(oldToDos => {
-            const targetIndex = oldToDos.findIndex(toDo => toDo.id === id)
-            //props에서 오는 id
+            const targetIndex = oldToDos.findIndex(toDo => toDo.id === id)     
+            //toDo의 id와 props에서 오는 id가 같은지 비교하면 된다.
             // const oldToDo = oldToDos[targetIndex];
             const newToDo = {text,id,category:name as any};
+            //category:name은 버튼에 클릭된 값을 가져야된다.
+            //as any라고 적으면, 타입스크립트에게 체크하지 말라고 하는 뜻
             console.log(
                 "replace the to do in the index",
                 targetIndex,
@@ -28,6 +32,7 @@ function ToDo({text,category,id}:IToDo){
                 newToDo
             )
             
+            // newToDo로 업데이트 하여 렌더링
             return [
                 ...oldToDos.slice(0,targetIndex),
                 newToDo,
@@ -46,6 +51,8 @@ function ToDo({text,category,id}:IToDo){
         {category !== "TO_DO" && <button onClick={()=> onClick("TO_DO")}>To Do</button>}
         {category !== "DONE" && <button onClick={()=> onClick("DONE")}>Done</button>}
          */}
+         
+         {/* 버튼 3개 중 2개만 보이는 조건식 */}
         {category !== "DOING" && (<button name="DOING" onClick={onClick} >Doing</button>)}
         {category !== "TO_DO" && (<button name="TO_DO" onClick={onClick} >To Do</button>)}
         {category !== "DONE" && (<button name="DONE" onClick={onClick} >Done</button>)}
