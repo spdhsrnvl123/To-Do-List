@@ -13,7 +13,7 @@ function ToDoList(){
     // const value = useRecoilValue(toDoState)
     // const modFn = useSetRecoilState(toDoState)
     // const { register, handleSubmit, setValue } = useForm<IForm>();
-    console.log(toDos)
+    // console.log(toDos)
     return(
         <div>
             <h1>To Dos</h1>

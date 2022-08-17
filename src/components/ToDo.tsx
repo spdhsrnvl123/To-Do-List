@@ -18,10 +18,21 @@ function ToDo({text,category,id}:IToDo){
         const name = event.currentTarget.name;
         setToDos(oldToDos => {
             const targetIndex = oldToDos.findIndex(toDo => toDo.id === id)
+            //props에서 오는 id
+            // const oldToDo = oldToDos[targetIndex];
+            const newToDo = {text,id,category:name as any};
+            console.log(
+                "replace the to do in the index",
+                targetIndex,
+                "with",
+                newToDo
+            )
             
-            
-            console.log(targetIndex)
-            return oldToDos
+            return [
+                ...oldToDos.slice(0,targetIndex),
+                newToDo,
+                ...oldToDos.slice(targetIndex + 1)
+            ]
         })
     }
     return <li>
