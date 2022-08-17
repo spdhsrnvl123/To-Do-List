@@ -1,14 +1,22 @@
 import { atom, selector } from "recoil";
 
+// type categories = "TO_DO" | "DOING" | "DONE"
+
+export enum Categories {
+    "TO_DO" = "TO_DO",
+    "DOING" = "DOING",
+    "DONE" = "DONE"
+}
+// enum은 프로그래머를 도와주기 위해서 일련의 숫자를 문자로 표현해준다.
 export interface IToDo{
     text:string;
     id:number;
-    category : "TO_DO" | "DOING" | "DONE";
+    category : Categories
 }
 
-export const categoryState = atom({
+export const categoryState = atom<Categories>({
     key:"category",
-    default : "TO_DO"
+    default : Categories.TO_DO
 })
 
 export const toDoState = atom<IToDo[]>({

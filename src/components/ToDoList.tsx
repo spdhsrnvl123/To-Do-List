@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { categoryState, toDoSelector, toDoState } from "../atoms";
+import { Categories, categoryState, toDoSelector, toDoState } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 
@@ -27,18 +27,22 @@ function ToDoList(){
     // 타겟이 변경될 때 categoryState값으로 갱신
     const [category,setCategory] = useRecoilState(categoryState);
     const onInput = (event:React.FormEvent<HTMLSelectElement>)=>{
-        setCategory(event.currentTarget.value)
+        setCategory(event.currentTarget.value as any)
     };
-    // console.log(category)
+    console.log(toDos)
     return(
         <div>
             <h1>To Dos</h1>
             <hr />
             {/* 옵션 값이 변경될 때 마다 onInput값이 실행 */}
+            {/*
+            타입스크립트는 관점에서는 value는 그냥 string이다. 
+            타입스크립트는 option의 value가 categories 타입과 같다는 걸 알지 못한다.
+            */}
             <select value={category} onInput={onInput}>
-                <option value="TO_DO">To Do</option>
-                <option value="DOING">Doing</option>
-                <option value="DONE">Done</option>
+                <option value={Categories.TO_DO}>To Do</option>
+                <option value={Categories.DOING}>Doing</option>
+                <option value={Categories.DONE}>Done</option>
             </select>
             <CreateToDo />
             {toDos?.map((toDo) => (

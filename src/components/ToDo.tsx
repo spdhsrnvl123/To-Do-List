@@ -1,6 +1,6 @@
 import React from "react"
 import { useSetRecoilState } from "recoil"
-import { IToDo,toDoState } from "../atoms"
+import { Categories, IToDo,toDoState } from "../atoms"
 
 /*
 newCategory:"TO_DO | "DOING" \ "DONE"을 써줄 수 있지만 썻던 걸 다시 사용하고 싶지 않으니 아래와 같은 방법 사용
@@ -53,9 +53,9 @@ function ToDo({text,category,id}:IToDo){
          */}
          
          {/* 버튼 3개 중 2개만 보이는 조건식 */}
-        {category !== "DOING" && (<button name="DOING" onClick={onClick} >Doing</button>)}
-        {category !== "TO_DO" && (<button name="TO_DO" onClick={onClick} >To Do</button>)}
-        {category !== "DONE" && (<button name="DONE" onClick={onClick} >Done</button>)}
+        {category !== Categories.DOING && (<button name={Categories.DOING} onClick={onClick} >Doing</button>)}
+        {category !== Categories.TO_DO && (<button name={Categories.TO_DO} onClick={onClick} >To Do</button>)}
+        {category !== Categories.DONE && (<button name={Categories.DONE} onClick={onClick} >Done</button>)}
         
         </li>
 // ex) "DONE"이 아닐 때만, "Done"버튼을 보여줄 것이다.
