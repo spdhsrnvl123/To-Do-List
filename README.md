@@ -1,19 +1,50 @@
 # 🚀To-Do-List
 
-#### ToDo Componenet 새로운 배열을 추가하는 이론 예시
+## ToDo Component에서 button태그를 클릭시 전달해 주고 싶은 데이터를 onClick함수에 전달해 주는 방법
+
+### first) onClick함수에 인자 넣기
+
+```tsx
+import React from "react";
+import {IToDo} from "../atoms";
+
+function ToDo({text,category} : IToDo{
+  
+  const onClick = (newCategory::IToDo["category"]) =>{
+    console.log("i wanna to",newCategory);
+  };
+  
+  return(
+      <li>
+        <span>{text}</span>
+        {category !== "DOING" && <button onClick={()=>onClick("DOING")}>Doing</button>}
+        {/* category가 DOING 이 아닐 경우 오른쪽 버튼태그를 보여준다. */}
+        {category !== "TO_DO" && <button onClick={()=>onClick("TO_DO")}>To Do</button>}
+        {category !== "DONE" && <button onClick={()=>onClick("DONE")}>DONE</button>}
+      </li>
+  )
+}
 ```
-const food = ["pizza","mango","kimchi","kimbab"]
 
-const target = 1;
-//undefined
+### second) event를 활용하기
 
-food.slice(0,target)
-//['pizza']
+```tsx
+import React from "react";
+import {IToDo} from "../atoms";
 
-food.slice(target+1)
-//['kimchi','kimbab']
+function ToDo({text,category} : IToDo{
+  
+  const onClick = (event:React.MouseEvent<HTMLButtonElement>)=>{
+      console.log(event.currentTarget.name);
+  }
 
-[...food.slice(0,target),"감",...food.slice(target+1)]
-['pizza','감','kimchi','kimbab']
-
+  return(
+      <li>
+        <span>{text}</span>
+        {category !== "DOING" && <button name="DOING" onClick = {onClick}>Doing</button>}
+        {category !== "TO_DO" && <button name="TO_DO" onClick = {onClick}>To Do</button>}
+        {category !== "DONE" && <button name="DONE" onClick = {onClick}>DONE</button>}
+      </li>
+  )
+})
 ```
